@@ -7,29 +7,57 @@ namespace RPGCharacterBuilder
     // This class shouldn't be created. You should only create instances of its subclasses
     class Character
     {
-        private readonly string _name;
+        private readonly string _name, _characterClass;
 
         // Level starts at 1. The other fields are determined by the character class
         private int _level;
-        private double _healthMultiplier, _strengthMultiplier, _defenseMultiplier;
+        private readonly double _healthMultiplier, _strengthMultiplier, _defenseMultiplier, _dexterityMultiplier;
 
-        // Constructor with no level specified
-        public Character(string name, double healthMultiplier, double strengthMultiplier, double defenseMultiplier)
+        /// <summary>
+        /// Constructor for creating a Character with no specified level. This will create a level 1 character
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="healthMultiplier"></param>
+        /// <param name="strengthMultiplier"></param>
+        /// <param name="defenseMultiplier"></param>
+        public Character(string name, 
+                        string characterClass, 
+                        double healthMultiplier, 
+                        double strengthMultiplier, 
+                        double defenseMultiplier, 
+                        double dexterityMultiplier)
         {
             _name = name;
+            _characterClass = characterClass;
             _healthMultiplier = healthMultiplier;
             _strengthMultiplier = strengthMultiplier;
             _defenseMultiplier = defenseMultiplier;
+            _dexterityMultiplier = dexterityMultiplier;
             _level = 1;
         }
 
-        // Constructor with level specified
-        public Character(string name, double healthMultiplier, double strengthMultiplier, double defenseMultiplier, int level)
+        /// <summary>
+        /// Constructor for creating a Character of the specified level.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="healthMultiplier"></param>
+        /// <param name="strengthMultiplier"></param>
+        /// <param name="defenseMultiplier"></param>
+        /// <param name="level"></param>
+        public Character(string name, 
+                        string characterClass, 
+                        double healthMultiplier, 
+                        double strengthMultiplier, 
+                        double defenseMultiplier, 
+                        double dexterityMultiplier,
+                        int level)
         {
             _name = name;
+            _characterClass = characterClass;
             _healthMultiplier = healthMultiplier;
             _strengthMultiplier = strengthMultiplier;
             _defenseMultiplier = defenseMultiplier;
+            _dexterityMultiplier = dexterityMultiplier;
             _level = level;
         }
 
@@ -38,22 +66,25 @@ namespace RPGCharacterBuilder
         public int TotalHealth => (int)(_level * _healthMultiplier);
         public int Strength => (int)(_level * _strengthMultiplier);
         public int Defense => (int)(_level * _defenseMultiplier);
+        public int Dexterity => (int)(_level * _dexterityMultiplier);
 
-        // Name getter (no setter -- cannot change name)
+        // Name getter
         public string Name { get => _name; }
 
         /// <summary>
         /// Prints character summary
         /// </summary>
         /// <param name="characterClass"></param>
-        public void PrintCharacter(string characterClass)
+        public void PrintCharacter()
         {
+            // TODO: Print what items the character has, how much damage they do, how much damage they receive (maybe). Maybe resistances, special abilities, elemental damage
             Console.WriteLine("------------------------------");
             Console.WriteLine("Character name: " + _name);
-            Console.WriteLine("Level " + _level + " " + characterClass);
+            Console.WriteLine("Level " + _level + " " + _characterClass);
             Console.WriteLine("Total Health: " + TotalHealth);
             Console.WriteLine("Strength: " + Strength);
             Console.WriteLine("Defense: " + Defense);
+            Console.WriteLine("Dexterity: " + Dexterity);
         }
 
         /// <summary>
@@ -83,7 +114,7 @@ namespace RPGCharacterBuilder
             }
             else
             {
-                _level = levels;
+                _level += levels;
             }
         }
 
