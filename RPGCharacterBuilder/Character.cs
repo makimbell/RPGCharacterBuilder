@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RPGCharacterBuilder
 {
-    // This class shouldn't be created. You should only create instances of its subclasses
-    class Character
+    public abstract class Character
     {
         private readonly string _name, _characterClass;
 
@@ -20,6 +17,7 @@ namespace RPGCharacterBuilder
         /// <param name="healthMultiplier"></param>
         /// <param name="strengthMultiplier"></param>
         /// <param name="defenseMultiplier"></param>
+        /// <param name="dexterityMultiplier"></param>
         public Character(string name, 
                         string characterClass, 
                         double healthMultiplier, 
@@ -43,6 +41,7 @@ namespace RPGCharacterBuilder
         /// <param name="healthMultiplier"></param>
         /// <param name="strengthMultiplier"></param>
         /// <param name="defenseMultiplier"></param>
+        /// <param name="dexterityMultiplier"></param>
         /// <param name="level"></param>
         public Character(string name, 
                         string characterClass, 
@@ -75,6 +74,7 @@ namespace RPGCharacterBuilder
         /// Prints character summary
         /// </summary>
         /// <param name="characterClass"></param>
+        /// 
         public void PrintCharacter()
         {
             // TODO: Print what items the character has, how much damage they do, how much damage they receive (maybe). Maybe resistances, special abilities, elemental damage
