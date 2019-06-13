@@ -2,6 +2,8 @@
 {
     class Barbarian : Character
     {
+        private const string CharacterClass = "Barbarian";
+
         // These should add up to 20 for character balance
         private const double HealthMultiplier = 5.5;
         private const double StrengthMultiplier = 7.0;
@@ -14,7 +16,7 @@
         /// <param name="name"></param>
         public Barbarian(string name) 
             : base(name, 
-                  "Barbarian",
+                  CharacterClass,
                   HealthMultiplier,
                   StrengthMultiplier,
                   DefenseMultiplier,
@@ -29,7 +31,7 @@
         /// <param name="level"></param>
         public Barbarian(string name, int level) 
             : base(name,
-                  "Barbarian",
+                  CharacterClass,
                   HealthMultiplier,
                   StrengthMultiplier,
                   DefenseMultiplier,
