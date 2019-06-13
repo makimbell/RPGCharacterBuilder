@@ -37,8 +37,6 @@
                   DefenseMultiplier,
                   DexterityMultiplier,
                   level)
-            // TODO: This will allow you to create a character over level 99. Lol. Fix this before creating more classes.
-            //  Or should this be fixed during input? If user enters a level over 99, then throw exception?
         {
         }
     }
