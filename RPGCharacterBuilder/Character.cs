@@ -65,9 +65,7 @@ namespace RPGCharacterBuilder
             _level = level > LevelCap ? LevelCap : level;
         }
 
-        // Calculated properties: TotalHealth, Strength, Defense
-        // TODO: Incorporate item modifiers here as well
-        // TODO: Come up with a better formula?
+        // Calculated properties: TotalHealth, Strength, Defense, Dexterity
         public int TotalHealth => (int)(_level * _healthMultiplier) + _healthFromItems;
         public int Strength => (int)(_level * _strengthMultiplier) + _strengthFromItems;
         public int Defense => (int)(_level * _defenseMultiplier) + _defenseFromItems;
@@ -80,17 +78,20 @@ namespace RPGCharacterBuilder
         /// </summary>
         /// <param name="characterClass"></param>
         /// 
-        public void PrintCharacter()
+        public void PrintCharacter(bool detail)
         {
             // TODO: Print what items the character has
             // TODO: Add colors if desired (Strength is red, dex is green, etc.)
             Console.WriteLine("------------------------------");
             Console.WriteLine("Character name: " + _name);
             Console.WriteLine("Level " + _level + " " + _characterClass);
-            Console.WriteLine("Total Health: " + TotalHealth);
-            Console.WriteLine("Strength: " + Strength);
-            Console.WriteLine("Defense: " + Defense);
-            Console.WriteLine("Dexterity: " + Dexterity);
+            if (detail)
+            {
+                Console.WriteLine("Total Health: " + TotalHealth);
+                Console.WriteLine("Strength: " + Strength);
+                Console.WriteLine("Defense: " + Defense);
+                Console.WriteLine("Dexterity: " + Dexterity);
+            }
         }
 
         /// <summary>
@@ -132,11 +133,15 @@ namespace RPGCharacterBuilder
             // TODO: Override methods so that you can pass in Weapon, Armor, or SpecialItem
             // TODO: Show what is currently equipped and ask to confirm
             _equippedWeapon = weapon;
+            RecalculateStatsFromItems();
         }
         public void Unequip()
         {
             // TODO: Ask whether you want to Unequip weapon, armor, or special item, then do it
         }
+        /// <summary>
+        /// Recalculates the _xFromItems fields for use in calculating stat properties. This is called after changing (equipping or unequipping) any items
+        /// </summary>
         private void RecalculateStatsFromItems()
         {
             // TODO: Incorporate other items' modifiers

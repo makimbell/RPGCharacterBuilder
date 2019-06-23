@@ -8,11 +8,38 @@ namespace RPGCharacterBuilder
     {
         static void Main()
         {
-            List<Barbarian> barbarians = new List<Barbarian>();
+            List<Character> characters = new List<Character>();
 
+            ReadCharactersFromFile(characters);
+
+            var cmd = Console.ReadLine();
+            while (cmd != "")
+            {
+                if (cmd == "print")
+                {
+                    Console.Clear();
+                    foreach (Character character in characters)
+                    {
+                        character.PrintCharacter(false);
+                    }
+                }
+                else if (cmd == "print detail")
+                {
+                    Console.Clear();
+                    foreach (Character character in characters)
+                    {
+                        character.PrintCharacter(true);
+                    }
+                }
+                cmd = Console.ReadLine();
+            }
+
+        }
+
+        private static void ReadCharactersFromFile(List<Character> characters)
+        {
             // Read each line of the file into a string array. Each element of the array is one line of the file.
             string[] lines = File.ReadAllLines("..\\..\\..\\CharacterData.txt");
-
             // Read in the contents of CharacterData.txt. Each line represents an object (character or item)
             foreach (string line in lines)
             {
@@ -23,11 +50,13 @@ namespace RPGCharacterBuilder
                 switch (currentData[0])
                 {
                     case "Barbarian":
-                        barbarians.Add(new Barbarian(currentData[1], Int32.Parse(currentData[2])));
+                        characters.Add(new Barbarian(currentData[1], Int32.Parse(currentData[2])));
+                        break;
+                    case "Ranger":
+                        characters.Add(new Ranger(currentData[1], Int32.Parse(currentData[2])));
                         break;
                 }
             }
-            Console.ReadLine();
         }
     }
 }
