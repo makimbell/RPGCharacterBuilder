@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace RPGCharacterBuilder
 {
@@ -7,6 +8,8 @@ namespace RPGCharacterBuilder
         private readonly string _name, _characterClass;
         private int _level;
         private readonly double _healthMultiplier, _strengthMultiplier, _defenseMultiplier, _dexterityMultiplier;
+        private Weapon _equippedWeapon;
+        private int _healthFromItems, _strengthFromItems, _defenseFromItems, _dexterityFromItems;
 
         private const int LevelCap = 99;
 
@@ -65,10 +68,10 @@ namespace RPGCharacterBuilder
         // Calculated properties: TotalHealth, Strength, Defense
         // TODO: Incorporate item modifiers here as well
         // TODO: Come up with a better formula?
-        public int TotalHealth => (int)(_level * _healthMultiplier);
-        public int Strength => (int)(_level * _strengthMultiplier);
-        public int Defense => (int)(_level * _defenseMultiplier);
-        public int Dexterity => (int)(_level * _dexterityMultiplier);
+        public int TotalHealth => (int)(_level * _healthMultiplier) + _healthFromItems;
+        public int Strength => (int)(_level * _strengthMultiplier) + _strengthFromItems;
+        public int Defense => (int)(_level * _defenseMultiplier) + _defenseFromItems;
+        public int Dexterity => (int)(_level * _dexterityMultiplier) + _dexterityFromItems;
         public string Name { get => _name; }
         public int Level { get => _level; }
 
@@ -124,12 +127,23 @@ namespace RPGCharacterBuilder
         /// <summary>
         /// Equips a weapon, armor, or special item
         /// </summary>
-        public void Equip(Item item)
+        public void Equip(Weapon weapon)
         {
-            // TODO: Complete
             // TODO: Override methods so that you can pass in Weapon, Armor, or SpecialItem
             // TODO: Show what is currently equipped and ask to confirm
-            Console.WriteLine("Equipping _____");
+            _equippedWeapon = weapon;
+        }
+        public void Unequip()
+        {
+            // TODO: Ask whether you want to Unequip weapon, armor, or special item, then do it
+        }
+        private void RecalculateStatsFromItems()
+        {
+            // TODO: Incorporate other items' modifiers
+            _healthFromItems = _equippedWeapon.HealthModifier; // + other items'
+            _strengthFromItems = _equippedWeapon.StrengthModifier;
+            _defenseFromItems = _equippedWeapon.DefenseModifier;
+            _dexterityFromItems = _equippedWeapon.DexterityModifier;
         }
     }
 }

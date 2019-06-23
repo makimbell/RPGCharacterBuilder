@@ -1,6 +1,6 @@
 ﻿namespace RPGCharacterBuilder
 {
-    class Barbarian : Character
+    public class Barbarian : Character
     {
         private const string CharacterClass = "Barbarian";
 

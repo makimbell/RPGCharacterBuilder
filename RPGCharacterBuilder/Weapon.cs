@@ -1,6 +1,6 @@
 ﻿namespace RPGCharacterBuilder
 {
-    class Weapon : Item
+    public class Weapon : Item
     {
         private const string Type = "Weapon";
 
