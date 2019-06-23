@@ -5,7 +5,6 @@ namespace RPGCharacterBuilder
     public abstract class Character
     {
         private readonly string _name, _characterClass;
-
         private int _level;
         private readonly double _healthMultiplier, _strengthMultiplier, _defenseMultiplier, _dexterityMultiplier;
 
@@ -64,14 +63,14 @@ namespace RPGCharacterBuilder
         }
 
         // Calculated properties: TotalHealth, Strength, Defense
-        // TODO: Incorporate item modifiers here as well. Also come up with a better formula and possibly get rid of casting
+        // TODO: Incorporate item modifiers here as well
+        // TODO: Come up with a better formula?
         public int TotalHealth => (int)(_level * _healthMultiplier);
         public int Strength => (int)(_level * _strengthMultiplier);
         public int Defense => (int)(_level * _defenseMultiplier);
         public int Dexterity => (int)(_level * _dexterityMultiplier);
-
-        // Name getter
         public string Name { get => _name; }
+        public int Level { get => _level; }
 
         /// <summary>
         /// Prints character summary
@@ -80,7 +79,8 @@ namespace RPGCharacterBuilder
         /// 
         public void PrintCharacter()
         {
-            // TODO: Print what items the character has, how much damage they do, how much damage they receive (maybe). Maybe resistances, special abilities, elemental damage
+            // TODO: Print what items the character has
+            // TODO: Add colors if desired (Strength is red, dex is green, etc.)
             Console.WriteLine("------------------------------");
             Console.WriteLine("Character name: " + _name);
             Console.WriteLine("Level " + _level + " " + _characterClass);
@@ -124,7 +124,7 @@ namespace RPGCharacterBuilder
         /// <summary>
         /// Equips a weapon, armor, or special item
         /// </summary>
-        public void Equip()
+        public void Equip(Item item)
         {
             // TODO: Complete
             // TODO: Override methods so that you can pass in Weapon, Armor, or SpecialItem

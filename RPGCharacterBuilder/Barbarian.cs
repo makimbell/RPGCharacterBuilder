@@ -4,7 +4,6 @@
     {
         private const string CharacterClass = "Barbarian";
 
-        // These should add up to 20 for character balance
         private const double HealthMultiplier = 5.5;
         private const double StrengthMultiplier = 7.0;
         private const double DefenseMultiplier = 5.0;

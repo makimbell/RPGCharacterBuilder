@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 
 namespace RPGCharacterBuilder
 {
@@ -8,36 +8,25 @@ namespace RPGCharacterBuilder
     {
         static void Main()
         {
-            // TODO: Make blank arrays of each character type to be populated by the Read function
+            List<Barbarian> barbarians = new List<Barbarian>();
 
-            //Barbarian barbarian = new Barbarian("Bob");
-            //barbarian.PrintCharacter();
+            // Read each line of the file into a string array. Each element of the array is one line of the file.
+            string[] lines = File.ReadAllLines("..\\..\\..\\CharacterData.txt");
 
-            //Console.ReadLine();
-            
-            //barbarian.LevelUp(50);
-            //barbarian.PrintCharacter();
-
-            // TEST CODE
-
-            // Read each line of the file into a string array. Each element
-            // of the array is one line of the file.
-            string[] lines = File.ReadAllLines("..\\..\\..\\TestFile.txt");
-
-            // Display the file contents by using a foreach loop.
-            Console.WriteLine("Characters read from TestFile.txt = ");
+            // Read in the contents of CharacterData.txt. Each line represents an object (character or item)
             foreach (string line in lines)
             {
-                // Use a tab to indent each line of the file.
+                var currentData = line.Split(',');
 
-                // TODO: Use currentData[0] to determine 
-                var currentData = line.Split(' ');
-                Barbarian barbarian1 = new Barbarian(currentData[1], Int32.Parse(currentData[2]));
-                barbarian1.PrintCharacter();
+                // Character type, Name, Level
+                // Sample data: ["Barbarian","Andy",40]
+                switch (currentData[0])
+                {
+                    case "Barbarian":
+                        barbarians.Add(new Barbarian(currentData[1], Int32.Parse(currentData[2])));
+                        break;
+                }
             }
-
-            // /TEST CODE
-
             Console.ReadLine();
         }
     }

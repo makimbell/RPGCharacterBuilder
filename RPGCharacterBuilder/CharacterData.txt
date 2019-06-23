@@ -1,0 +1,3 @@
+﻿Barbarian,Andy,40
+Barbarian,Bob,20
+Barbarian,Jerry,999
