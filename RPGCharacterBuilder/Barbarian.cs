@@ -10,25 +10,11 @@
         private const double DexterityMultiplier = 2.5;
 
         /// <summary>
-        /// Constructor for creating a Barbarian with no specified level. This will create a level 1 Barbarian.
-        /// </summary>
-        /// <param name="name"></param>
-        public Barbarian(string name) 
-            : base(name, 
-                  CharacterClass,
-                  HealthMultiplier,
-                  StrengthMultiplier,
-                  DefenseMultiplier,
-                  DexterityMultiplier)
-        {
-        }
-
-        /// <summary>
-        /// Constructor for creating a Barbarian of the specified level.
+        /// Constructor for creating a Barbarian of the specified level. If no level is given, the default of 1 will be used.
         /// </summary>
         /// <param name="name"></param>
         /// <param name="level"></param>
-        public Barbarian(string name, int level) 
+        public Barbarian(string name, int level = 1) 
             : base(name,
                   CharacterClass,
                   HealthMultiplier,

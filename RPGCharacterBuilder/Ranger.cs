@@ -2,7 +2,7 @@
 {
     public class Ranger : Character
     {
-        private const string CharacterClass = "Barbarian";
+        private const string CharacterClass = "Ranger";
 
         private const double HealthMultiplier = 4.0;
         private const double StrengthMultiplier = 4.5;
@@ -10,25 +10,11 @@
         private const double DexterityMultiplier = 7.0;
 
         /// <summary>
-        /// Constructor for creating a Ranger with no specified level. This will create a level 1 Ranger.
-        /// </summary>
-        /// <param name="name"></param>
-        public Ranger(string name)
-            : base(name,
-                  CharacterClass,
-                  HealthMultiplier,
-                  StrengthMultiplier,
-                  DefenseMultiplier,
-                  DexterityMultiplier)
-        {
-        }
-
-        /// <summary>
-        /// Constructor for creating a Ranger of the specified level.
+        /// Constructor for creating a Ranger of the specified level. If no level is given, the default of 1 will be used.
         /// </summary>
         /// <param name="name"></param>
         /// <param name="level"></param>
-        public Ranger(string name, int level)
+        public Ranger(string name, int level = 1)
             : base(name,
                   CharacterClass,
                   HealthMultiplier,

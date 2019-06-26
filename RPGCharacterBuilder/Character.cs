@@ -14,30 +14,6 @@ namespace RPGCharacterBuilder
         private const int LevelCap = 99;
 
         /// <summary>
-        /// Constructor for creating a Character with no specified level. This will create a level 1 character
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="healthMultiplier"></param>
-        /// <param name="strengthMultiplier"></param>
-        /// <param name="defenseMultiplier"></param>
-        /// <param name="dexterityMultiplier"></param>
-        public Character(string name, 
-                        string characterClass, 
-                        double healthMultiplier, 
-                        double strengthMultiplier, 
-                        double defenseMultiplier, 
-                        double dexterityMultiplier)
-        {
-            _name = name;
-            _characterClass = characterClass;
-            _healthMultiplier = healthMultiplier;
-            _strengthMultiplier = strengthMultiplier;
-            _defenseMultiplier = defenseMultiplier;
-            _dexterityMultiplier = dexterityMultiplier;
-            _level = 1;
-        }
-
-        /// <summary>
         /// Constructor for creating a Character of the specified level.
         /// </summary>
         /// <param name="name"></param>
@@ -46,13 +22,8 @@ namespace RPGCharacterBuilder
         /// <param name="defenseMultiplier"></param>
         /// <param name="dexterityMultiplier"></param>
         /// <param name="level"></param>
-        public Character(string name, 
-                        string characterClass, 
-                        double healthMultiplier, 
-                        double strengthMultiplier, 
-                        double defenseMultiplier, 
-                        double dexterityMultiplier,
-                        int level)
+        public Character(string name, string characterClass, double healthMultiplier, double strengthMultiplier, 
+                        double defenseMultiplier, double dexterityMultiplier, int level)
         {
             _name = name;
             _characterClass = characterClass;

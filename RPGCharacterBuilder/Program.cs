@@ -10,7 +10,13 @@ namespace RPGCharacterBuilder
         static void Main()
         {
             ReadCharactersFromFile();
-            ReadLineLoop();
+
+            // Start interactive menu
+            string userInput;
+            do
+            {
+                userInput = HomeMenu();
+            } while (userInput != "0");
         }
         private static void ReadCharactersFromFile()
         {
@@ -34,29 +40,50 @@ namespace RPGCharacterBuilder
                 }
             }
         }
-        private static void ReadLineLoop()
+        private static string HomeMenu()
         {
-            var cmd = Console.ReadLine();
-            while (cmd != "")
+            Console.Clear();
+            Console.WriteLine("===========================");
+            Console.WriteLine("Main menu");
+            Console.WriteLine("===========================");
+            Console.WriteLine("Choose an action:");
+            Console.WriteLine("1. Show list of characters");
+            Console.WriteLine("2. Show character detail");
+            Console.WriteLine("0. Quit");
+            Console.WriteLine("");
+            Console.Write("Choice: ");
+            var userInput = Console.ReadLine();
             {
-                if (cmd == "print")
+                switch (userInput)
                 {
-                    Console.Clear();
-                    foreach (Character character in characters)
-                    {
-                        character.PrintCharacter(false);
-                    }
+                    case "1":
+                        Console.Clear();
+                        foreach (Character character in characters)
+                        {
+                            character.PrintCharacter(false);
+                        }
+                        EnterToReturnHome();
+                        break;
+
+                    case "2":
+                        Console.Clear();
+                        foreach (Character character in characters)
+                        {
+                            character.PrintCharacter(true);
+                        }
+
+                        EnterToReturnHome();
+                        break;
                 }
-                else if (cmd == "print detail")
-                {
-                    Console.Clear();
-                    foreach (Character character in characters)
-                    {
-                        character.PrintCharacter(true);
-                    }
-                }
-                cmd = Console.ReadLine();
+                return userInput;
             }
+        }
+        private static void EnterToReturnHome()
+        {
+            Console.WriteLine("");
+            Console.WriteLine("==============================");
+            Console.WriteLine("Press enter to return to menu");
+            Console.ReadLine();
         }
     }
 }
