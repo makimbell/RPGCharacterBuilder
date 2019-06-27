@@ -15,7 +15,7 @@ namespace RPGCharacterBuilder
             string userInput;
             do
             {
-                userInput = HomeMenu();
+                userInput = MainMenu();
             } while (userInput != "0");
 
             // TODO: WriteCharactersToFile();
@@ -42,7 +42,7 @@ namespace RPGCharacterBuilder
                 }
             }
         }
-        private static string HomeMenu()
+        private static string MainMenu()
         {
             // Show menu header
             Console.Clear();
@@ -108,7 +108,7 @@ namespace RPGCharacterBuilder
             }
             catch
             {
-                // Do nothing. This will return to the menu that called the ShowCharacterList() method
+                // Returns to MainMenu
             }
         }
 
