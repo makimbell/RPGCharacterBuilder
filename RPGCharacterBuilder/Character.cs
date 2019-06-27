@@ -53,8 +53,8 @@ namespace RPGCharacterBuilder
         {
             // TODO: Print what items the character has
             // TODO: Add colors if desired (Strength is red, dex is green, etc.)
-            Console.WriteLine("------------------------------");
-            Console.WriteLine("Character name: " + _name);
+            // Console.WriteLine("------------------------------");
+            Console.WriteLine(_name);
             Console.WriteLine("Level " + _level + " " + _characterClass);
             if (detail)
             {
