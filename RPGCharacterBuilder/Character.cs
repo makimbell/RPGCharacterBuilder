@@ -14,7 +14,7 @@ namespace RPGCharacterBuilder
         private const int LevelCap = 99;
 
         /// <summary>
-        /// Constructor for creating a Character of the specified level.
+        /// Constructor for creating a Character of the specified level
         /// </summary>
         /// <param name="name"></param>
         /// <param name="healthMultiplier"></param>

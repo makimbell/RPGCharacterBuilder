@@ -15,7 +15,17 @@ namespace RPGCharacterBuilder
                             + ".." + Path.AltDirectorySeparatorChar
                             + "CharacterData.csv";
 
-            ReadCharactersFromFile(filePath);
+            // Try to read characters from file and populate characters list. If file is not found, create default character list
+            try
+            {
+                ReadCharactersFromFile(filePath);
+            }
+            catch
+            {
+                AddCharacterToList("Barbarian", "Andy", 50);
+                AddCharacterToList("Ranger", "Kristine", 50);
+            }
+            
 
             // Start interactive menu. Loop until user enters 0 in main menu
             string userInput;
