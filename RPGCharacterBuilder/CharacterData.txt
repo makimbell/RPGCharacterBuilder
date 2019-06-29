@@ -1,4 +1,0 @@
-﻿Barbarian,Andy,30
-Barbarian,Bob,20
-Barbarian,Jerry,999
-Ranger,Kristine,30

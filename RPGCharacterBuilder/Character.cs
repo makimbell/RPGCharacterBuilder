@@ -43,6 +43,7 @@ namespace RPGCharacterBuilder
         public int Dexterity => (int)(_level * _dexterityMultiplier) + _dexterityFromItems;
         public string Name { get => _name; }
         public int Level { get => _level; }
+        public string CharacterClass { get => _characterClass; }
 
         /// <summary>
         /// Prints character summary
@@ -99,11 +100,15 @@ namespace RPGCharacterBuilder
         /// <summary>
         /// Equips a weapon, armor, or special item
         /// </summary>
-        public void Equip(Weapon weapon)
+        public void Equip(Item item)
         {
-            // TODO: Override methods so that you can pass in Weapon, Armor, or SpecialItem
-            // TODO: Show what is currently equipped and ask to confirm
-            _equippedWeapon = weapon;
+            if (_equippedWeapon == null)
+            {
+                if (item is Weapon)
+                {
+                    _equippedWeapon = (Weapon)item;
+                }
+            }
             RecalculateStatsFromItems();
         }
         public void Unequip()
@@ -117,9 +122,9 @@ namespace RPGCharacterBuilder
         {
             // TODO: Incorporate other items' modifiers
             _healthFromItems = _equippedWeapon.HealthModifier; // + other items'
-            _strengthFromItems = _equippedWeapon.StrengthModifier;
-            _defenseFromItems = _equippedWeapon.DefenseModifier;
-            _dexterityFromItems = _equippedWeapon.DexterityModifier;
+            _strengthFromItems = _equippedWeapon.StrengthModifier; // + other items'
+            _defenseFromItems = _equippedWeapon.DefenseModifier; // + other items'
+            _dexterityFromItems = _equippedWeapon.DexterityModifier; // + other items'
         }
     }
 }

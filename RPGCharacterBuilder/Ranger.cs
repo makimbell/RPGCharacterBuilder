@@ -2,7 +2,7 @@
 {
     public class Ranger : Character
     {
-        private const string CharacterClass = "Ranger";
+        private const string CharacterClassString = "Ranger";
 
         private const double HealthMultiplier = 4.0;
         private const double StrengthMultiplier = 4.5;
@@ -16,7 +16,7 @@
         /// <param name="level"></param>
         public Ranger(string name, int level = 1)
             : base(name,
-                  CharacterClass,
+                  CharacterClassString,
                   HealthMultiplier,
                   StrengthMultiplier,
                   DefenseMultiplier,

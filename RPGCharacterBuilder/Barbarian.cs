@@ -2,7 +2,7 @@
 {
     public class Barbarian : Character
     {
-        private const string CharacterClass = "Barbarian";
+        private const string CharacterClassString = "Barbarian";
 
         private const double HealthMultiplier = 5.5;
         private const double StrengthMultiplier = 7.0;
@@ -16,7 +16,7 @@
         /// <param name="level"></param>
         public Barbarian(string name, int level = 1) 
             : base(name,
-                  CharacterClass,
+                  CharacterClassString,
                   HealthMultiplier,
                   StrengthMultiplier,
                   DefenseMultiplier,

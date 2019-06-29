@@ -9,7 +9,13 @@ namespace RPGCharacterBuilder
         private static List<Character> characters = new List<Character>();
         static void Main()
         {
-            ReadCharactersFromFile();
+            // OS-agnostic file path for character data file
+            string filePath = ".." + Path.AltDirectorySeparatorChar
+                            + ".." + Path.AltDirectorySeparatorChar
+                            + ".." + Path.AltDirectorySeparatorChar
+                            + "CharacterData.csv";
+
+            ReadCharactersFromFile(filePath);
 
             // Start interactive menu. Loop until user enters 0 in main menu
             string userInput;
@@ -18,29 +24,47 @@ namespace RPGCharacterBuilder
                 userInput = MainMenu();
             } while (userInput != "0");
 
-            // TODO: WriteCharactersToFile();
+            WriteCharactersToFile(filePath);
         }
-        private static void ReadCharactersFromFile()
+        private static void ReadCharactersFromFile(string filePath)
         {
             // Read each line of the file into a string array. Each element of the array is one line of the file.
-            string[] lines = File.ReadAllLines("..\\..\\..\\CharacterData.txt");
-            // Read in the contents of CharacterData.txt. Each line represents an object (character or item)
+            string[] lines = File.ReadAllLines(filePath);
+            // Read in the contents of the character data file. Each line represents an object (character or item)
             foreach (string line in lines)
             {
                 var currentData = line.Split(',');
-
-                // Character type, Name, Level
-                // Sample data: ["Barbarian","Andy",40]
-                switch (currentData[0])
-                {
-                    case "Barbarian":
-                        characters.Add(new Barbarian(currentData[1], Int32.Parse(currentData[2])));
-                        break;
-                    case "Ranger":
-                        characters.Add(new Ranger(currentData[1], Int32.Parse(currentData[2])));
-                        break;
-                }
+                
+                // [0]-Class, [1]-Name, [2]-Level
+                AddCharacterToList(currentData[0], currentData[1], Int32.Parse(currentData[2]));
             }
+        }
+
+        private static void AddCharacterToList(string characterClass, string characterName, int characterLevel)
+        {
+            switch (characterClass)
+            {
+                case "Barbarian":
+                    characters.Add(new Barbarian(characterName, characterLevel));
+                    break;
+                case "Ranger":
+                    characters.Add(new Ranger(characterName, characterLevel));
+                    break;
+            }
+        }
+
+        private static void WriteCharactersToFile(string filePath)
+        {
+            List<string> lines = new List<string>();
+
+            // For every Character in characters list, write that line to the file
+            foreach (Character character in characters)
+            {
+                lines.Add(character.CharacterClass + "," + character.Name + "," + character.Level);
+            }
+
+            // TODO: Make this compatible with Mac
+            File.WriteAllLines(filePath, lines);
         }
         private static string MainMenu()
         {
@@ -53,6 +77,7 @@ namespace RPGCharacterBuilder
 
             // Show options
             Console.WriteLine("1. Show character list");
+            Console.WriteLine("2. Create a new character");
             Console.WriteLine("0. Quit");
             Console.WriteLine("");
             Console.Write("Selection: ");
@@ -63,14 +88,18 @@ namespace RPGCharacterBuilder
             // If user enters 1, show character list
             if (userInput == "1")
             {
-                ShowCharacterList();
+                CharacterListMenu();
+            }
+            else if (userInput == "2")
+            {
+                CreateCharacterMenu();
             }
 
             // Return value to main
             return userInput;
         }
 
-        private static void ShowCharacterList()
+        private static void CharacterListMenu()
         {
             // Show menu header
             Console.Clear();
@@ -102,8 +131,8 @@ namespace RPGCharacterBuilder
             {
                 if (Int32.Parse(userInput) > 0 && Int32.Parse(userInput) <= characters.Count)
                 {
-                    ShowCharacterDetail(Int32.Parse(userInput));
-                    ShowCharacterList();
+                    CharacterDetailMenu(Int32.Parse(userInput));
+                    CharacterListMenu();
                 }
             }
             catch
@@ -111,8 +140,54 @@ namespace RPGCharacterBuilder
                 // Returns to MainMenu
             }
         }
+        private static void CreateCharacterMenu()
+        {
+            string characterClass, name;
+            int level;
 
-        private static void ShowCharacterDetail(int index)
+            // Show menu header
+            Console.Clear();
+            Console.WriteLine("===========================");
+            Console.WriteLine("Create a character");
+            Console.WriteLine("===========================");
+
+            // Show options
+            Console.WriteLine("1. Create a barbarian");
+            Console.WriteLine("2. Create a ranger");
+            Console.WriteLine("");
+            Console.Write("Selection: ");
+
+            // Get user input for character class
+            var userInput = Console.ReadLine();
+
+            if (userInput == "1")
+            {
+                characterClass = "Barbarian";
+            }
+            else if (userInput == "2")
+            {
+                characterClass = "Ranger";
+            }
+            else
+            {
+                characterClass = "Barbarian"; // Default in case the user doesn't choose a valid option
+            }
+
+            // Get input for character name
+            Console.WriteLine("");
+            Console.Write("Character name: ");
+            name = Console.ReadLine();
+
+            // Get user input for level
+            Console.WriteLine("");
+            Console.Write("Character level: ");
+            level = Int32.Parse(Console.ReadLine());
+
+            // Create character
+            AddCharacterToList(characterClass, name, level);
+        }
+
+        private static void CharacterDetailMenu(int index)
         {
             // Show menu header
             Console.Clear();
@@ -127,6 +202,7 @@ namespace RPGCharacterBuilder
             // Show options
             Console.WriteLine("");
             Console.WriteLine("1. Level character up");
+            Console.WriteLine("2. Delete character");
             Console.WriteLine("0. Return to character list");
             Console.WriteLine("");
             Console.Write("Selection: ");
@@ -138,6 +214,11 @@ namespace RPGCharacterBuilder
             if (userInput == "1")
             {
                 characters[index - 1].LevelUp();
+            }
+            // If user enters 2, delete character
+            else if (userInput == "2")
+            {
+                characters.RemoveAt(index - 1);
             }
         }
     }
