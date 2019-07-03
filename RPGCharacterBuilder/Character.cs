@@ -43,6 +43,7 @@ namespace RPGCharacterBuilder
         public int Dexterity => (int)(_level * _dexterityMultiplier) + _dexterityFromItems;
         public string Name { get => _name; }
         public int Level { get => _level; }
+        public bool WeaponEquipped { get => _equippedWeapon != null; }
         public string CharacterClass { get => _characterClass; }
 
         /// <summary>
@@ -50,19 +51,33 @@ namespace RPGCharacterBuilder
         /// </summary>
         /// <param name="characterClass"></param>
         /// 
-        public void PrintCharacter(bool detail)
+        public void PrintCharacter()
         {
             // TODO: Print what items the character has
             // TODO: Add colors if desired (Strength is red, dex is green, etc.)
             // Console.WriteLine("------------------------------");
             Console.WriteLine(_name);
             Console.WriteLine("Level " + _level + " " + _characterClass);
-            if (detail)
+            if (WeaponEquipped)
             {
-                Console.WriteLine("Total Health: " + TotalHealth);
-                Console.WriteLine("Strength: " + Strength);
-                Console.WriteLine("Defense: " + Defense);
-                Console.WriteLine("Dexterity: " + Dexterity);
+                Console.WriteLine("Weapon equipped");
+            }
+        }
+
+        public void PrintCharacterDetail()
+        {
+            // TODO: Print what items the character has
+            // TODO: Add colors if desired (Strength is red, dex is green, etc.)
+            // Console.WriteLine("------------------------------");
+            Console.WriteLine(_name);
+            Console.WriteLine("Level " + _level + " " + _characterClass);
+            Console.WriteLine("Total Health: " + TotalHealth);
+            Console.WriteLine("Strength: " + Strength);
+            Console.WriteLine("Defense: " + Defense);
+            Console.WriteLine("Dexterity: " + Dexterity);
+            if (WeaponEquipped)
+            {
+                _equippedWeapon.PrintWeapon();
             }
         }
 
@@ -102,13 +117,23 @@ namespace RPGCharacterBuilder
         /// </summary>
         public void Equip(Item item)
         {
-            if (_equippedWeapon == null)
+            bool confirmed = true;
+
+            if (item is Weapon)
             {
-                if (item is Weapon)
+                if (_equippedWeapon != null)
+                {
+                    Console.Write("Overwrite currently equipped weapon? (y/n): ");
+                    string yesno = Console.ReadLine().ToUpper();
+                    confirmed = (yesno == "Y") ?  true : false;
+                }
+
+                if (confirmed)
                 {
                     _equippedWeapon = (Weapon)item;
                 }
             }
+
             RecalculateStatsFromItems();
         }
         public void Unequip()
@@ -120,11 +145,7 @@ namespace RPGCharacterBuilder
         /// </summary>
         private void RecalculateStatsFromItems()
         {
-            // TODO: Incorporate other items' modifiers
-            _healthFromItems = _equippedWeapon.HealthModifier; // + other items'
-            _strengthFromItems = _equippedWeapon.StrengthModifier; // + other items'
-            _defenseFromItems = _equippedWeapon.DefenseModifier; // + other items'
-            _dexterityFromItems = _equippedWeapon.DexterityModifier; // + other items'
+            // TODO: This doesn't do anything anymore, right?
         }
     }
 }

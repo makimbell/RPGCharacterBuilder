@@ -7,25 +7,24 @@ namespace RPGCharacterBuilder
     class Program
     {
         private static List<Character> characters = new List<Character>();
+
         static void Main()
         {
-            // OS-agnostic file path for character data file
-            string filePath = ".." + Path.AltDirectorySeparatorChar
-                            + ".." + Path.AltDirectorySeparatorChar
-                            + ".." + Path.AltDirectorySeparatorChar
-                            + "CharacterData.csv";
+            // File path for character data file
+            string currentDirectory = Directory.GetCurrentDirectory();
+            DirectoryInfo directory = new DirectoryInfo(currentDirectory);
+            var filePath = Path.Combine(directory.FullName, "CharacterData.csv");
 
             // Try to read characters from file and populate characters list. If file is not found, create default character list
-            try
+            if (File.Exists(filePath))
             {
                 ReadCharactersFromFile(filePath);
             }
-            catch
+            else
             {
                 AddCharacterToList("Barbarian", "Andy", 50);
                 AddCharacterToList("Ranger", "Kristine", 50);
             }
-            
 
             // Start interactive menu. Loop until user enters 0 in main menu
             string userInput;
@@ -36,6 +35,7 @@ namespace RPGCharacterBuilder
 
             WriteCharactersToFile(filePath);
         }
+
         private static void ReadCharactersFromFile(string filePath)
         {
             // Read each line of the file into a string array. Each element of the array is one line of the file.
@@ -76,6 +76,7 @@ namespace RPGCharacterBuilder
             // TODO: Make this compatible with Mac
             File.WriteAllLines(filePath, lines);
         }
+
         private static string MainMenu()
         {
             // Show menu header
@@ -122,7 +123,7 @@ namespace RPGCharacterBuilder
             foreach (Character character in characters)
             {
                 Console.Write("[{0}] - ", index);
-                character.PrintCharacter(false);
+                character.PrintCharacter();
                 Console.WriteLine("");
                 index++;
             }
@@ -150,6 +151,7 @@ namespace RPGCharacterBuilder
                 // Returns to MainMenu
             }
         }
+
         private static void CreateCharacterMenu()
         {
             string characterClass, name;
@@ -207,12 +209,14 @@ namespace RPGCharacterBuilder
             Console.WriteLine("");
 
             // Show content
-            characters[index - 1].PrintCharacter(true);
+            characters[index - 1].PrintCharacterDetail();
 
             // Show options
             Console.WriteLine("");
             Console.WriteLine("1. Level character up");
             Console.WriteLine("2. Delete character");
+            Console.WriteLine("3. Equip weapon");
+            Console.WriteLine("4. Unequip weapon");
             Console.WriteLine("0. Return to character list");
             Console.WriteLine("");
             Console.Write("Selection: ");
@@ -229,6 +233,23 @@ namespace RPGCharacterBuilder
             else if (userInput == "2")
             {
                 characters.RemoveAt(index - 1);
+            }
+            // If user enters 3, create and equip a weapon
+            else if (userInput == "3")
+            {
+                Console.Write("Weapon name: ");
+                string weaponName = Console.ReadLine();
+                Console.Write("Weapon description: ");
+                string weaponDescription = Console.ReadLine();
+                Console.Write("Damage: ");
+                int weaponDamage = Int32.Parse(Console.ReadLine());
+
+                characters[index - 1].Equip(new Weapon(weaponName, weaponDescription, weaponDamage));
+            }
+            // If user enters 4, unequip the weapon
+            else if (userInput == "4")
+            {
+                characters[index - 1].Unequip();
             }
         }
     }

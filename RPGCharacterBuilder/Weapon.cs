@@ -1,18 +1,23 @@
-﻿namespace RPGCharacterBuilder
+﻿using System;
+
+namespace RPGCharacterBuilder
 {
     public class Weapon : Item
     {
         private const string Type = "Weapon";
 
-        public Weapon(string name, string description, int healthMod, int strengthMod, int defenseMod, int dexterityMod)
-            : base(Type,
-                  name,
-                  description,
-                  healthMod,
-                  strengthMod,
-                  defenseMod,
-                  dexterityMod)
+        public int Damage { get; }
+
+        public Weapon(string name, string description, int damage)
+            : base(Type, name, description)
         {
+            Damage = damage;
+        }
+
+        public void PrintWeapon()
+        {
+            base.PrintItem();
+            Console.WriteLine("Damage: " + Damage);
         }
     }
 }
