@@ -38,15 +38,27 @@ namespace RPGCharacterBuilder
 
         private static void ReadCharactersFromFile(string filePath)
         {
+            int currentCharacterIndex = 0;
+
             // Read each line of the file into a string array. Each element of the array is one line of the file.
             string[] lines = File.ReadAllLines(filePath);
-            // Read in the contents of the character data file. Each line represents an object (character or item)
+
+            // Read in the contents of the character data file. Each line represents an object
             foreach (string line in lines)
             {
                 var currentData = line.Split(',');
                 
                 // [0]-Class, [1]-Name, [2]-Level
                 AddCharacterToList(currentData[0], currentData[1], Int32.Parse(currentData[2]));
+
+                // [3]-Weapon equipped (true/false), [4]-Weapon name, [5]-Weapon description, [6]-Weapon damage
+                if (currentData[3] == "true")
+                {
+                    // If character has a weapon, equip it
+                    characters[currentCharacterIndex].Equip(new Weapon(currentData[4], currentData[5], Int32.Parse(currentData[6])));
+                }
+
+                currentCharacterIndex++;
             }
         }
 
@@ -70,10 +82,21 @@ namespace RPGCharacterBuilder
             // For every Character in characters list, write that line to the file
             foreach (Character character in characters)
             {
-                lines.Add(character.CharacterClass + "," + character.Name + "," + character.Level);
+                string line = character.CharacterClass + "," + character.Name + "," + character.Level;
+
+                if (character.WeaponEquipped)
+                {
+                    line += ",true," + character.Weapon.Name + "," + character.Weapon.Description + "," + character.Weapon.Damage;
+                }
+                else
+                {
+                    line += ",false";
+                }
+
+                lines.Add(line);
             }
 
-            // TODO: Make this compatible with Mac
+            
             File.WriteAllLines(filePath, lines);
         }
 

@@ -9,7 +9,6 @@ namespace RPGCharacterBuilder
         private int _level;
         private readonly double _healthMultiplier, _strengthMultiplier, _defenseMultiplier, _dexterityMultiplier;
         private Weapon _equippedWeapon;
-        private int _healthFromItems, _strengthFromItems, _defenseFromItems, _dexterityFromItems;
 
         private const int LevelCap = 99;
 
@@ -37,13 +36,14 @@ namespace RPGCharacterBuilder
         }
 
         // Calculated properties: TotalHealth, Strength, Defense, Dexterity
-        public int TotalHealth => (int)(_level * _healthMultiplier) + _healthFromItems;
-        public int Strength => (int)(_level * _strengthMultiplier) + _strengthFromItems;
-        public int Defense => (int)(_level * _defenseMultiplier) + _defenseFromItems;
-        public int Dexterity => (int)(_level * _dexterityMultiplier) + _dexterityFromItems;
+        public int TotalHealth => (int)(_level * _healthMultiplier);
+        public int Strength => (int)(_level * _strengthMultiplier);
+        public int Defense => (int)(_level * _defenseMultiplier);
+        public int Dexterity => (int)(_level * _dexterityMultiplier);
         public string Name { get => _name; }
         public int Level { get => _level; }
         public bool WeaponEquipped { get => _equippedWeapon != null; }
+        public Weapon Weapon { get => _equippedWeapon; }
         public string CharacterClass { get => _characterClass; }
 
         /// <summary>
@@ -53,9 +53,7 @@ namespace RPGCharacterBuilder
         /// 
         public void PrintCharacter()
         {
-            // TODO: Print what items the character has
             // TODO: Add colors if desired (Strength is red, dex is green, etc.)
-            // Console.WriteLine("------------------------------");
             Console.WriteLine(_name);
             Console.WriteLine("Level " + _level + " " + _characterClass);
             if (WeaponEquipped)
@@ -66,9 +64,7 @@ namespace RPGCharacterBuilder
 
         public void PrintCharacterDetail()
         {
-            // TODO: Print what items the character has
             // TODO: Add colors if desired (Strength is red, dex is green, etc.)
-            // Console.WriteLine("------------------------------");
             Console.WriteLine(_name);
             Console.WriteLine("Level " + _level + " " + _characterClass);
             Console.WriteLine("Total Health: " + TotalHealth);

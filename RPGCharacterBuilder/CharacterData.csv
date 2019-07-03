@@ -1,4 +1,4 @@
-Barbarian,Andy,43
-Barbarian,Bob,20
-Ranger,Kristine,30
-Barbarian,Tim,65
+Barbarian,Andy,43,true,Dagger,Stabby Boi,50
+Barbarian,Bob,20,false
+Ranger,Kristine,30,false
+Barbarian,Tim,65,false
