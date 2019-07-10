@@ -1,4 +1,7 @@
-Barbarian,Andy,43,true,Dagger,Stabby Boi,50
-Barbarian,Bob,20,false
+Barbarian,Andy,44,true,Dagger,Stabby Boi,50
+Barbarian,Bob,23,false
 Ranger,Kristine,30,false
 Barbarian,Tim,65,false
+Thief,Johnny,35,true,Thief dagger,,25
+Sorcerer,Sorcy,46,false
+Paladin,Pally,78,true,Holy mace,Spiky holy weapon,250
