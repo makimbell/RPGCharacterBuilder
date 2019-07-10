@@ -18,6 +18,7 @@ namespace RPGCharacterBuilder
         {
             base.PrintItem();
             Console.WriteLine("Damage: " + Damage);
+            Console.WriteLine("------------------------------");
         }
     }
 }

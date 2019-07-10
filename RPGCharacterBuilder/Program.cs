@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 
 namespace RPGCharacterBuilder
 {
@@ -26,6 +27,8 @@ namespace RPGCharacterBuilder
                 AddCharacterToList("Ranger", "Kristine", 50);
             }
 
+            ShowSplashScreen(500);
+
             // Start interactive menu. Loop until user enters 0 in main menu
             string userInput;
             do
@@ -34,6 +37,36 @@ namespace RPGCharacterBuilder
             } while (userInput != "0");
 
             WriteCharactersToFile(filePath);
+        }
+
+        private static void ShowSplashScreen(int displayTime)
+        {
+            Console.WriteLine("");
+            Console.WriteLine("                            ██████╗ ██████╗  ██████╗");
+            Console.WriteLine("                            ██╔══██╗██╔══██╗██╔════╝");
+            Console.WriteLine("                            ██████╔╝██████╔╝██║  ███╗");
+            Console.WriteLine("                            ██╔══██╗██╔═══╝ ██║   ██║");
+            Console.WriteLine("                            ██║  ██║██║     ╚██████╔╝");
+            Console.WriteLine("                            ╚═╝  ╚═╝╚═╝      ╚═════╝");
+            Console.WriteLine("");
+            Console.WriteLine("      ██████╗██╗  ██╗ █████╗ ██████╗  █████╗  ██████╗████████╗███████╗██████╗");
+            Console.WriteLine("     ██╔════╝██║  ██║██╔══██╗██╔══██╗██╔══██╗██╔════╝╚══██╔══╝██╔════╝██╔══██╗");
+            Console.WriteLine("     ██║     ███████║███████║██████╔╝███████║██║        ██║   █████╗  ██████╔╝");
+            Console.WriteLine("     ██║     ██╔══██║██╔══██║██╔══██╗██╔══██║██║        ██║   ██╔══╝  ██╔══██╗");
+            Console.WriteLine("     ╚██████╗██║  ██║██║  ██║██║  ██║██║  ██║╚██████╗   ██║   ███████╗██║  ██║");
+            Console.WriteLine("     ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝");
+            Console.WriteLine("");
+            Console.WriteLine("               ██████╗ ██╗   ██╗██╗██╗     ██████╗ ███████╗██████╗");
+            Console.WriteLine("               ██╔══██╗██║   ██║██║██║     ██╔══██╗██╔════╝██╔══██╗");
+            Console.WriteLine("               ██████╔╝██║   ██║██║██║     ██║  ██║█████╗  ██████╔╝");
+            Console.WriteLine("               ██╔══██╗██║   ██║██║██║     ██║  ██║██╔══╝  ██╔══██╗");
+            Console.WriteLine("               ██████╔╝╚██████╔╝██║███████╗██████╔╝███████╗██║  ██║");
+            Console.WriteLine("               ╚═════╝  ╚═════╝ ╚═╝╚══════╝╚═════╝ ╚══════╝╚═╝  ╚═╝");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("By Andy Kimbell");
+
+            Thread.Sleep(displayTime);                                                                     
         }
 
         private static void ReadCharactersFromFile(string filePath)
@@ -72,6 +105,12 @@ namespace RPGCharacterBuilder
                 case "Ranger":
                     characters.Add(new Ranger(characterName, characterLevel));
                     break;
+                case "Thief":
+                    characters.Add(new Thief(characterName, characterLevel));
+                    break;
+                case "Sorcerer":
+                    characters.Add(new Sorcerer(characterName, characterLevel));
+                    break;
             }
         }
 
@@ -95,7 +134,6 @@ namespace RPGCharacterBuilder
 
                 lines.Add(line);
             }
-
             
             File.WriteAllLines(filePath, lines);
         }
@@ -150,6 +188,7 @@ namespace RPGCharacterBuilder
                 Console.WriteLine("");
                 index++;
             }
+            Console.WriteLine("");
 
             // Show options
             Console.WriteLine("1-{0}. View character detail", characters.Count);
@@ -185,10 +224,13 @@ namespace RPGCharacterBuilder
             Console.WriteLine("===========================");
             Console.WriteLine("Create a character");
             Console.WriteLine("===========================");
+            Console.WriteLine("");
 
             // Show options
             Console.WriteLine("1. Create a barbarian");
             Console.WriteLine("2. Create a ranger");
+            Console.WriteLine("3. Create a thief");
+            Console.WriteLine("4. Create a sorcerer");
             Console.WriteLine("");
             Console.Write("Selection: ");
 
@@ -203,18 +245,24 @@ namespace RPGCharacterBuilder
             {
                 characterClass = "Ranger";
             }
+            else if (userInput == "3")
+            {
+                characterClass = "Thief";
+            }
+            else if (userInput == "4")
+            {
+                characterClass = "Sorcerer";
+            }
             else
             {
                 characterClass = "Barbarian"; // Default in case the user doesn't choose a valid option
             }
 
             // Get input for character name
-            Console.WriteLine("");
             Console.Write("Character name: ");
             name = Console.ReadLine();
 
             // Get user input for level
-            Console.WriteLine("");
             Console.Write("Character level: ");
             level = Int32.Parse(Console.ReadLine());
 
@@ -235,7 +283,6 @@ namespace RPGCharacterBuilder
             characters[index - 1].PrintCharacterDetail();
 
             // Show options
-            Console.WriteLine("");
             Console.WriteLine("1. Level character up");
             Console.WriteLine("2. Delete character");
             Console.WriteLine("3. Equip weapon");

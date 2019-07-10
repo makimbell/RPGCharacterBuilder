@@ -134,14 +134,15 @@ namespace RPGCharacterBuilder
         }
         public void Unequip()
         {
-            // TODO: Ask whether you want to Unequip weapon, armor, or special item, then do it
+            _equippedWeapon = null;
+            RecalculateStatsFromItems();
         }
         /// <summary>
         /// Recalculates the _xFromItems fields for use in calculating stat properties. This is called after changing (equipping or unequipping) any items
         /// </summary>
         private void RecalculateStatsFromItems()
         {
-            // TODO: This doesn't do anything anymore, right?
+            // TODO: This doesn't do anything yet
         }
     }
 }
