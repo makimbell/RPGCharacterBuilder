@@ -35,7 +35,7 @@ namespace RPGCharacterBuilder
             _level = level > LevelCap ? LevelCap : level;
         }
 
-        // Calculated properties: TotalHealth, Strength, Defense, Dexterity
+        // Calculated and auto properties
         public int TotalHealth => (int)(_level * _healthMultiplier);
         public int Strength => (int)(_level * _strengthMultiplier);
         public int Defense => (int)(_level * _defenseMultiplier);
@@ -53,7 +53,6 @@ namespace RPGCharacterBuilder
         /// 
         public void PrintCharacter()
         {
-            // TODO: Add colors if desired (Strength is red, dex is green, etc.)
             Console.WriteLine(_name);
             Console.WriteLine("Level " + _level + " " + _characterClass);
             if (WeaponEquipped)
@@ -62,9 +61,11 @@ namespace RPGCharacterBuilder
             }
         }
 
+        /// <summary>
+        /// Prints character summary with detail
+        /// </summary>
         public void PrintCharacterDetail()
         {
-            // TODO: Add colors if desired (Strength is red, dex is green, etc.)
             Console.WriteLine(_name);
             Console.WriteLine("Level " + _level + " " + _characterClass);
             Console.WriteLine("Total Health: " + TotalHealth);
@@ -109,7 +110,7 @@ namespace RPGCharacterBuilder
         }
 
         /// <summary>
-        /// Equips a weapon, armor, or special item
+        /// Equips a weapon
         /// </summary>
         public void Equip(Item item)
         {
@@ -132,11 +133,16 @@ namespace RPGCharacterBuilder
 
             RecalculateStatsFromItems();
         }
+
+        /// <summary>
+        /// Unequip currently equipped weapon
+        /// </summary>
         public void Unequip()
         {
             _equippedWeapon = null;
             RecalculateStatsFromItems();
         }
+
         /// <summary>
         /// Recalculates the _xFromItems fields for use in calculating stat properties. This is called after changing (equipping or unequipping) any items
         /// </summary>

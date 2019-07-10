@@ -2,8 +2,10 @@
 {
     public class Ranger : Character
     {
+        // Ranger type string
         private const string CharacterClassString = "Ranger";
 
+        // Ranger class constants
         private const double HealthMultiplier = 4.0;
         private const double StrengthMultiplier = 4.5;
         private const double DefenseMultiplier = 4.5;

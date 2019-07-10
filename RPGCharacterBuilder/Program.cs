@@ -7,6 +7,7 @@ namespace RPGCharacterBuilder
 {
     class Program
     {
+        // List for storing all character instances
         private static List<Character> characters = new List<Character>();
 
         static void Main()
@@ -25,9 +26,13 @@ namespace RPGCharacterBuilder
             {
                 AddCharacterToList("Barbarian", "Andy", 50);
                 AddCharacterToList("Ranger", "Kristine", 50);
+                AddCharacterToList("Paladin", "Pally", 50);
+                AddCharacterToList("Sorcerer", "Sorcy", 50);
+                AddCharacterToList("Thief", "Theodore", 50);
             }
 
-            ShowSplashScreen(500);
+            // Show splash screen for 5 seconds
+            ShowSplashScreen(5000);
 
             // Start interactive menu. Loop until user enters 0 in main menu
             string userInput;
@@ -36,6 +41,7 @@ namespace RPGCharacterBuilder
                 userInput = MainMenu();
             } while (userInput != "0");
 
+            // Write characters to file before the program closes
             WriteCharactersToFile(filePath);
         }
 
@@ -95,6 +101,12 @@ namespace RPGCharacterBuilder
             }
         }
 
+        /// <summary>
+        /// Add a single character to the character list
+        /// </summary>
+        /// <param name="characterClass"></param>
+        /// <param name="characterName"></param>
+        /// <param name="characterLevel"></param>
         private static void AddCharacterToList(string characterClass, string characterName, int characterLevel)
         {
             switch (characterClass)
@@ -111,6 +123,10 @@ namespace RPGCharacterBuilder
                 case "Sorcerer":
                     characters.Add(new Sorcerer(characterName, characterLevel));
                     break;
+                case "Paladin":
+                    characters.Add(new Paladin(characterName, characterLevel));
+                    break;
+
             }
         }
 
@@ -178,6 +194,7 @@ namespace RPGCharacterBuilder
             Console.WriteLine("===========================");
             Console.WriteLine("Character list");
             Console.WriteLine("===========================");
+            Console.WriteLine("");
 
             // Show content
             int index = 1;
@@ -188,9 +205,9 @@ namespace RPGCharacterBuilder
                 Console.WriteLine("");
                 index++;
             }
-            Console.WriteLine("");
 
             // Show options
+            Console.WriteLine("-----------------------------");
             Console.WriteLine("1-{0}. View character detail", characters.Count);
             Console.WriteLine("0. Return to main menu");
             Console.WriteLine("");
@@ -231,6 +248,7 @@ namespace RPGCharacterBuilder
             Console.WriteLine("2. Create a ranger");
             Console.WriteLine("3. Create a thief");
             Console.WriteLine("4. Create a sorcerer");
+            Console.WriteLine("5. Create a paladin");
             Console.WriteLine("");
             Console.Write("Selection: ");
 
@@ -252,6 +270,10 @@ namespace RPGCharacterBuilder
             else if (userInput == "4")
             {
                 characterClass = "Sorcerer";
+            }
+            else if (userInput == "5")
+            {
+                characterClass = "Paladin";
             }
             else
             {
@@ -281,6 +303,7 @@ namespace RPGCharacterBuilder
 
             // Show content
             characters[index - 1].PrintCharacterDetail();
+            Console.WriteLine("");
 
             // Show options
             Console.WriteLine("1. Level character up");
