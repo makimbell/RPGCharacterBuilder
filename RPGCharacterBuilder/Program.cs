@@ -32,7 +32,7 @@ namespace RPGCharacterBuilder
             }
 
             // Show splash screen for 5 seconds
-            ShowSplashScreen(5000);
+            ShowSplashScreen(500);
 
             // Start interactive menu. Loop until user enters 0 in main menu
             string userInput;
@@ -72,7 +72,9 @@ namespace RPGCharacterBuilder
             Console.WriteLine("");
             Console.WriteLine("By Andy Kimbell");
 
-            Thread.Sleep(displayTime);                                                                     
+            Thread.Sleep(displayTime);
+            Console.WriteLine("Press enter to continue");
+            Console.ReadLine();
         }
 
         private static void ReadCharactersFromFile(string filePath)
