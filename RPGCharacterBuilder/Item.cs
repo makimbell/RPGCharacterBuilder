@@ -31,7 +31,7 @@ namespace RPGCharacterBuilder
         {
             Console.WriteLine("------------------------------");
             Console.WriteLine("Item name: " + _name);
-            if(_description != null) Console.WriteLine("Description: " + _description);
+            if(_description != "") Console.WriteLine("Description: " + _description);
         }
     }
 }

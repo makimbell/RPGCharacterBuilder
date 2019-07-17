@@ -24,8 +24,8 @@ namespace RPGCharacterBuilder
             }
             else
             {
-                AddCharacterToList("Barbarian", "Andy", 50);
-                AddCharacterToList("Ranger", "Kristine", 50);
+                AddCharacterToList("Barbarian", "Barbara", 50);
+                AddCharacterToList("Ranger", "Roger", 50);
                 AddCharacterToList("Paladin", "Pally", 50);
                 AddCharacterToList("Sorcerer", "Sorcy", 50);
                 AddCharacterToList("Thief", "Theodore", 50);
@@ -60,7 +60,7 @@ namespace RPGCharacterBuilder
             Console.WriteLine("     ██║     ███████║███████║██████╔╝███████║██║        ██║   █████╗  ██████╔╝");
             Console.WriteLine("     ██║     ██╔══██║██╔══██║██╔══██╗██╔══██║██║        ██║   ██╔══╝  ██╔══██╗");
             Console.WriteLine("     ╚██████╗██║  ██║██║  ██║██║  ██║██║  ██║╚██████╗   ██║   ███████╗██║  ██║");
-            Console.WriteLine("     ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝");
+            Console.WriteLine("      ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝");
             Console.WriteLine("");
             Console.WriteLine("               ██████╗ ██╗   ██╗██╗██╗     ██████╗ ███████╗██████╗");
             Console.WriteLine("               ██╔══██╗██║   ██║██║██║     ██╔══██╗██╔════╝██╔══██╗");
@@ -170,8 +170,8 @@ namespace RPGCharacterBuilder
             Console.WriteLine("");
             Console.Write("Selection: ");
 
-            // Get input
-            var userInput = Console.ReadLine();
+            // Get first character of input
+            var userInput = Console.ReadLine()[0].ToString();
 
             // If user enters 1, show character list
             if (userInput == "1")
@@ -213,8 +213,8 @@ namespace RPGCharacterBuilder
             Console.WriteLine("");
             Console.Write("Selection: ");
 
-            // Get input
-            var userInput = Console.ReadLine();
+            // Get first character of input
+            var userInput = Console.ReadLine()[0].ToString();
 
             // If the user enters the (1-based) index of a character, display that character's detail. Return to character list when done
             try
@@ -253,7 +253,7 @@ namespace RPGCharacterBuilder
             Console.Write("Selection: ");
 
             // Get user input for character class
-            var userInput = Console.ReadLine();
+            var userInput = Console.ReadLine()[0].ToString();
 
             if (userInput == "1")
             {
@@ -282,11 +282,19 @@ namespace RPGCharacterBuilder
 
             // Get input for character name
             Console.Write("Character name: ");
-            name = Console.ReadLine();
+            name = Console.ReadLine().Replace(",", "");
 
             // Get user input for level
             Console.Write("Character level: ");
-            level = Int32.Parse(Console.ReadLine());
+            if (Int32.TryParse(Console.ReadLine(), out level))
+            {
+                // In this case, the level they entered was valid
+            }
+            else
+            {
+                // The level the user entered was not valid. Assign default level of 30
+                level = 30;
+            }
 
             // Create character
             AddCharacterToList(characterClass, name, level);
@@ -315,7 +323,7 @@ namespace RPGCharacterBuilder
             Console.Write("Selection: ");
 
             // Get input
-            var userInput = Console.ReadLine();
+            var userInput = Console.ReadLine()[0].ToString();
 
             // If user enters 1, level up by one
             if (userInput == "1")
@@ -330,12 +338,24 @@ namespace RPGCharacterBuilder
             // If user enters 3, create and equip a weapon
             else if (userInput == "3")
             {
+                int weaponDamage;
+
                 Console.Write("Weapon name: ");
-                string weaponName = Console.ReadLine();
+                string weaponName = Console.ReadLine().Replace(",", "");
+
                 Console.Write("Weapon description: ");
-                string weaponDescription = Console.ReadLine();
+                string weaponDescription = Console.ReadLine().Replace(",", "");
+
                 Console.Write("Damage: ");
-                int weaponDamage = Int32.Parse(Console.ReadLine());
+                if(Int32.TryParse(Console.ReadLine(), out weaponDamage))
+                {
+                    // In this case, the user entered a valid weaponDamage and everything is good
+                }
+                else
+                {
+                    // If the user did not enter a valid weaponDamage, use a default value
+                    weaponDamage = 100;
+                }
 
                 characters[index - 1].Equip(new Weapon(weaponName, weaponDescription, weaponDamage));
             }
