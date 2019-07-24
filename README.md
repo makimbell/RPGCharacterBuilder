@@ -3,7 +3,7 @@
 
 #### Application Summary
 
-RPG Character Builder allows the user to create and manage a list of RPG characters. Use the number keys to navigate the menus in order to create, edit, and delete characters. Characters can be created from the main menu. Alternatively, you can view a list of characters, which you can level up (by one, to simulate leveling up in game), equip a weapon, unequip a weapon, or delete.
+RPG Character Builder allows the user to create and manage a list of RPG characters. Use the number keys to navigate the menus in order to create, edit, and delete characters. Characters can be created from the main menu. Alternatively, you can view a list of characters, which you can level up (by one level, to simulate leveling up in game), equip a weapon, unequip a weapon, or delete.
 
 #### Requirements
 
