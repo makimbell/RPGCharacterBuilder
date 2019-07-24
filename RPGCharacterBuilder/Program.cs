@@ -31,7 +31,7 @@ namespace RPGCharacterBuilder
                 AddCharacterToList("Thief", "Theodore", 50);
             }
 
-            // Show splash screen for 5 seconds
+            // Show splash screen for 500ms
             ShowSplashScreen(500);
 
             // Start interactive menu. Loop until user enters 0 in main menu
@@ -45,6 +45,10 @@ namespace RPGCharacterBuilder
             WriteCharactersToFile(filePath);
         }
 
+        /// <summary>
+        /// Show splash screen. Pass display time in ms.
+        /// </summary>
+        /// <param name="displayTime"></param>
         private static void ShowSplashScreen(int displayTime)
         {
             Console.WriteLine("");
@@ -92,7 +96,7 @@ namespace RPGCharacterBuilder
                 // [0]-Class, [1]-Name, [2]-Level
                 AddCharacterToList(currentData[0], currentData[1], Int32.Parse(currentData[2]));
 
-                // [3]-Weapon equipped (true/false), [4]-Weapon name, [5]-Weapon description, [6]-Weapon damage
+                // [3]-Weapon equipped (bool), [4]-Weapon name, [5]-Weapon description, [6]-Weapon damage
                 if (currentData[3] == "true")
                 {
                     // If character has a weapon, equip it
@@ -189,6 +193,9 @@ namespace RPGCharacterBuilder
             return userInput;
         }
 
+        /// <summary>
+        /// Show the show character list menu
+        /// </summary>
         private static void CharacterListMenu()
         {
             // Show menu header
@@ -233,6 +240,9 @@ namespace RPGCharacterBuilder
             }
         }
 
+        /// <summary>
+        /// Show create character menu
+        /// </summary>
         private static void CreateCharacterMenu()
         {
             string characterClass, name;
@@ -290,7 +300,7 @@ namespace RPGCharacterBuilder
             Console.Write("Character level: ");
             if (Int32.TryParse(Console.ReadLine(), out level))
             {
-                // In this case, the level they entered was valid
+                // In this case, the level they entered was valid, so level variable is good
             }
             else
             {
@@ -302,6 +312,10 @@ namespace RPGCharacterBuilder
             AddCharacterToList(characterClass, name, level);
         }
 
+        /// <summary>
+        /// Show character detail menu
+        /// </summary>
+        /// <param name="index"></param>
         private static void CharacterDetailMenu(int index)
         {
             // Show menu header
@@ -340,8 +354,6 @@ namespace RPGCharacterBuilder
             // If user enters 3, create and equip a weapon
             else if (userInput == "3")
             {
-                int weaponDamage;
-
                 Console.Write("Weapon name: ");
                 string weaponName = Console.ReadLine().Replace(",", "");
 
@@ -349,7 +361,7 @@ namespace RPGCharacterBuilder
                 string weaponDescription = Console.ReadLine().Replace(",", "");
 
                 Console.Write("Damage: ");
-                if(Int32.TryParse(Console.ReadLine(), out weaponDamage))
+                if(Int32.TryParse(Console.ReadLine(), out int weaponDamage))
                 {
                     // In this case, the user entered a valid weaponDamage and everything is good
                 }
